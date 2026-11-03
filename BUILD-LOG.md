@@ -41,3 +41,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   (keys stay English); Spanish + Vietnamese example chips on Order.
 - 2026-11-02: Dispatcher eval — 20-case script with budget/menu checks,
   `npm run eval`, results in eval/results.md.
+- 2026-11-02: Vitest suite — tests for garden, simulate, store, and
+  extractJson; `npm test` green.
