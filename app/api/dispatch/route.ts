@@ -82,6 +82,7 @@ function contextBlock(): string {
 export async function POST(req: Request) {
   const body = (await req.json().catch(() => null)) as { message?: unknown } | null;
   const message = typeof body?.message === "string" ? body.message.trim() : "";
+  const started = Date.now();
   if (!message) {
     return NextResponse.json({ error: "message required" }, { status: 400 });
   }
@@ -98,7 +99,11 @@ export async function POST(req: Request) {
   );
 
   if (!result.ok) {
-    return NextResponse.json(localSuggest(message));
+    return NextResponse.json({
+      ...localSuggest(message),
+      model: null,
+      latencyMs: Date.now() - started,
+    });
   }
 
   const parsed = extractJson(result.text) as {
@@ -135,5 +140,7 @@ export async function POST(req: Request) {
     restaurantId,
     items,
     driverId,
-  } satisfies Suggestion);
+    model: TEXT_MODEL,
+    latencyMs: Date.now() - started,
+  });
 }

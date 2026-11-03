@@ -18,6 +18,7 @@ export default function MenuScanPage() {
   const [restId, setRestId] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [items, setItems] = useState<ScannedItem[]>([]);
+  const [scanMeta, setScanMeta] = useState<{ model: string; latencyMs: number } | null>(null);
   const [scanning, setScanning] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,9 +55,15 @@ export default function MenuScanPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image: preview }),
       });
-      const data = (await res.json()) as { items?: ScannedItem[]; error?: string };
+      const data = (await res.json()) as {
+        items?: ScannedItem[];
+        model?: string;
+        latencyMs?: number;
+        error?: string;
+      };
       if (!res.ok) throw new Error(data.error ?? "Scan failed.");
       setItems(data.items ?? []);
+      setScanMeta({ model: data.model ?? "Muse", latencyMs: data.latencyMs ?? 0 });
       if ((data.items ?? []).length === 0) {
         setError("No menu items found in that photo — try a clearer shot.");
       }
@@ -144,7 +151,11 @@ export default function MenuScanPage() {
               <button className="btn" onClick={scan} disabled={scanning}>
                 {scanning ? "Reading menu…" : "Scan menu"}
               </button>
-              <span className="badge badge-ai">Muse vision</span>
+              {scanMeta && items.length > 0 && (
+                <span className="badge badge-ai">
+                  {scanMeta.model} · {scanMeta.latencyMs}ms
+                </span>
+              )}
             </div>
           </div>
         )}

@@ -35,3 +35,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   planting, paintable sun, live yield/hours, recommendations, autosave.
 - 2026-11-02: Landing reframed around hubs of support; resource placer
   (k-means) and live RLIS parcel picker added to the lab.
+- 2026-11-02: AI visibility — model + latency badges on dispatcher and
+  menu scan results; local fallback labeled with its own timing.

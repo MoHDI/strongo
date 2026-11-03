@@ -22,6 +22,8 @@ interface Suggestion {
   restaurantId: string | null;
   items: Array<{ name: string; qty: number }>;
   driverId: string | null;
+  model: string | null;
+  latencyMs: number;
 }
 
 export default function DeliveryPage() {
@@ -200,7 +202,9 @@ export default function DeliveryPage() {
                   suggestion.source === "ai" ? "badge badge-ai" : "badge badge-local"
                 }
               >
-                {suggestion.source === "ai" ? "Muse Spark" : "Local fallback"}
+                {suggestion.source === "ai"
+                  ? `${suggestion.model ?? "Muse Spark"} · ${suggestion.latencyMs}ms`
+                  : `Local fallback · ${suggestion.latencyMs}ms`}
               </span>
               {suggestion.restaurantId && (
                 <button className="btn" onClick={useSuggestion}>

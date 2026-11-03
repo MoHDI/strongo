@@ -27,6 +27,7 @@ function cleanItems(value: unknown): ScannedItem[] {
 
 // POST { image: dataUrl } → { items } transcribed from a menu photo.
 export async function POST(req: Request) {
+  const started = Date.now();
   const body = (await req.json().catch(() => null)) as { image?: unknown } | null;
   if (!body || typeof body.image !== "string" || !body.image.startsWith("data:image/")) {
     return NextResponse.json({ error: "image data URL required" }, { status: 400 });
@@ -65,7 +66,11 @@ export async function POST(req: Request) {
   }
 
   const parsed = extractJson(result.text) as { items?: unknown } | null;
-  return NextResponse.json({ items: cleanItems(parsed?.items) });
+  return NextResponse.json({
+    items: cleanItems(parsed?.items),
+    model: VISION_MODEL,
+    latencyMs: Date.now() - started,
+  });
 }
 
 // PUT { restaurantId, items } → publishes scanned items to a demo menu.
