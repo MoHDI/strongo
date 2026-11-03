@@ -151,16 +151,10 @@ export default function PlotterPage() {
           </Link>
           <nav className="site-nav">
             <Link href="/delivery">Order</Link>
+            <Link href="/menu-scan">Menu scan</Link>
             <Link href="/dispatch">Dispatch</Link>
             <Link href="/transparency">Transparency</Link>
-            <Link href="/map">Map</Link>
-            <Link href="/menu-scan">Menu scan</Link>
-            <Link href="/garden">Garden</Link>
-            <Link href="/hubs">Hubs</Link>
-            <Link href="/simulate">Simulate</Link>
-            <Link href="/pilot">Pilot</Link>
-            <Link href="/lab">Lab</Link>
-            <Link href="/plotter">Plotter</Link>
+            <Link href="/labs">Labs</Link>
           </nav>
         </div>
       </header>

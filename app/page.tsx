@@ -2,15 +2,10 @@ import Link from "next/link";
 
 const DEMOS = [
   { href: "/delivery", name: "Order", note: "Ask in plain words, build a cart, place an order." },
+  { href: "/menu-scan", name: "Menu scan", note: "Turn a menu photo into structured items." },
   { href: "/dispatch", name: "Dispatch", note: "Accept orders and move them to delivered." },
   { href: "/transparency", name: "Transparency", note: "See where every dollar of an order goes." },
-  { href: "/pilot", name: "Portland pilot", note: "Customer and driver views of a live pilot map." },
-  { href: "/map", name: "Map", note: "Restaurants and drivers on a live neighborhood map." },
-  { href: "/menu-scan", name: "Menu scan", note: "Turn a menu photo into structured items." },
-  { href: "/garden", name: "Garden", note: "Turn a yard into a crop plan with yield and hours." },
-  { href: "/hubs", name: "Hubs", note: "Service directory plus a 24/7 night board." },
-  { href: "/simulate", name: "Simulate", note: "Livestock rotations and dog corridors, with the math." },
-  { href: "/plotter", name: "Plotter", note: "Drag crops onto a sun-mapped bed." },
+  { href: "/labs", name: "Labs", note: "Garden, hubs, sims, maps, and pilots in progress." },
 ];
 
 export default function Home() {
@@ -252,8 +247,7 @@ export default function Home() {
           <section className="block">
             <h2>Try the working demo</h2>
             <p>
-              Ten small pages, one loop: order dinner, dispatch it, and audit
-              every dollar. Start anywhere.
+              Four steps, one loop — plus the Labs playground. Start anywhere.
             </p>
             <ul className="demo-list">
               {DEMOS.map((d, i) => (

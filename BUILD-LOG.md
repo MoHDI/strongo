@@ -47,3 +47,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   on Node 20 for pushes and PRs.
 - 2026-11-02: Docker — multi-stage Node 20 image with standalone
   output, compose.yaml with .env.local, README quickstart.
+- 2026-11-02: Nav focused — core loop (Order, Menu scan, Dispatch,
+  Transparency) plus a Labs index; no routes deleted.

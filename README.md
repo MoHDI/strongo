@@ -44,6 +44,7 @@ The image is multi-stage (Node 20) running the Next.js standalone server.
 - `/pilot` — Portland pilot map with customer/driver views.
 - `/lab` — map overlay playground with dev panel (simulated demand).
 - `/plotter` — drag-and-drop garden bed planner with sun + yield.
+- `/labs` — index of experimental pages beyond the core loop.
 
 ## AI setup
 
