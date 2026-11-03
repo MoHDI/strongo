@@ -21,6 +21,16 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 3. Accept the defaults (Next.js preset, `npm run build`). No environment
    variables needed.
 
+## Docker
+
+```sh
+cp .env.example .env.local   # add MODEL_API_KEY for AI features (optional)
+docker compose up --build
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
+The image is multi-stage (Node 20) running the Next.js standalone server.
+
 ## Live demo (hackathon)
 
 - `/delivery` — order flow with an AI dispatcher (plain-words ordering).

@@ -45,3 +45,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   extractJson; `npm test` green.
 - 2026-11-02: CI — GitHub Actions runs npm ci, typecheck, test, build
   on Node 20 for pushes and PRs.
+- 2026-11-02: Docker — multi-stage Node 20 image with standalone
+  output, compose.yaml with .env.local, README quickstart.
