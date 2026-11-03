@@ -78,15 +78,15 @@ export default function DeliveryPage() {
   const cartEntries = Object.entries(cart).filter(([, q]) => q > 0);
   const total = cartEntries.reduce((sum, [name, q]) => sum + priceOf(name) * q, 0);
 
-  async function handleAsk() {
-    if (!ask.trim()) return;
+  async function handleAsk(text: string) {
+    if (!text.trim()) return;
     setAsking(true);
     setError(null);
     try {
       const res = await fetch("/api/dispatch", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: ask }),
+        body: JSON.stringify({ message: text }),
       });
       setSuggestion((await res.json()) as Suggestion);
     } catch {
@@ -187,9 +187,25 @@ export default function DeliveryPage() {
             placeholder="Feed my family of 4 for under $40"
           />
           <div className="btn-row">
-            <button className="btn" onClick={handleAsk} disabled={asking}>
+            <button className="btn" onClick={() => handleAsk(ask)} disabled={asking}>
               {asking ? "Thinking…" : "Suggest"}
             </button>
+          </div>
+          <div className="rest-pick" style={{ marginTop: "0.75rem" }}>
+            {[
+              "Comida para 4 personas por menos de $40",
+              "Đồ ăn cho 4 người dưới $40",
+            ].map((ex) => (
+              <button
+                key={ex}
+                onClick={() => {
+                  setAsk(ex);
+                  handleAsk(ex);
+                }}
+              >
+                {ex}
+              </button>
+            ))}
           </div>
         </div>
 

@@ -39,14 +39,30 @@ function nearestDriverId(lat: number, lng: number): string {
 // Keeps the demo working offline; the response is labeled "local".
 function localSuggest(message: string): Suggestion {
   const lower = message.toLowerCase();
+  const ALIASES: Record<string, string> = {
+    mexicana: "verde",
+    mexicano: "verde",
+    italiana: "nonna",
+    italiano: "nonna",
+    china: "golden",
+    chino: "golden",
+    "café": "daily",
+  };
+  const aliasHit = Object.keys(ALIASES).find((a) => lower.includes(a));
   const restaurant =
+    (aliasHit
+      ? restaurants.find((r) => r.id === ALIASES[aliasHit])
+      : undefined) ??
     restaurants.find(
       (r) =>
         lower.includes(r.name.toLowerCase().split(" ")[0]) ||
         lower.includes(r.cuisine.toLowerCase())
-    ) ?? restaurants[0];
+    ) ??
+    restaurants[0];
 
-  const budgetMatch = lower.match(/under\s*\$?\s*(\d+)|(\d+)\s*(bucks|dollars|\$)/);
+  const budgetMatch = lower.match(
+    /(?:under|below|menos de|dưới)\s*\$?\s*(\d+)|(\d+)\s*(bucks|dollars|\$|dólares|đô)/
+  );
   const budget = budgetMatch ? Number(budgetMatch[1] ?? budgetMatch[2]) : null;
 
   const items: Array<{ name: string; qty: number }> = [];
@@ -91,7 +107,7 @@ export async function POST(req: Request) {
     [
       {
         role: "system",
-        content: `You are Strongo's friendly community delivery dispatcher. Match the neighbor's request to one restaurant, suggest up to 3 menu items within any stated budget, and pick the closest driver. Respond with JSON ONLY, no other text: {"reply": "1-2 warm sentences", "restaurantId": "id or null", "items": [{"name": "exact menu name", "qty": 1}], "driverId": "id or null"}. Never invent restaurants, items, or drivers outside the lists below.\n\n${contextBlock()}`,
+        content: `You are Strongo's friendly community delivery dispatcher. Match the neighbor's request to one restaurant, suggest up to 3 menu items within any stated budget, and pick the closest driver. Reply in the customer's language (match the language of their message); keep the JSON keys in English. Respond with JSON ONLY, no other text: {"reply": "1-2 warm sentences", "restaurantId": "id or null", "items": [{"name": "exact menu name", "qty": 1}], "driverId": "id or null"}. Never invent restaurants, items, or drivers outside the lists below.\n\n${contextBlock()}`,
       },
       { role: "user", content: message },
     ],
