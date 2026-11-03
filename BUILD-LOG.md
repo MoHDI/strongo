@@ -43,3 +43,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   `npm run eval`, results in eval/results.md.
 - 2026-11-02: Vitest suite — tests for garden, simulate, store, and
   extractJson; `npm test` green.
+- 2026-11-02: CI — GitHub Actions runs npm ci, typecheck, test, build
+  on Node 20 for pushes and PRs.
