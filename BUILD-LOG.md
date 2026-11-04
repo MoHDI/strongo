@@ -51,3 +51,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   Transparency) plus a Labs index; no routes deleted.
 - 2026-11-02: Provenance footer on every page via root layout, linked
   to the build log; landing footer folded into it.
+- 2026-11-02: Fridge Check — vision inventory with staples gap list,
+  one-tap posting to the need board; added to main nav.

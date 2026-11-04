@@ -45,6 +45,7 @@ The image is multi-stage (Node 20) running the Next.js standalone server.
 - `/lab` — map overlay playground with dev panel (simulated demand).
 - `/plotter` — drag-and-drop garden bed planner with sun + yield.
 - `/labs` — index of experimental pages beyond the core loop.
+- `/fridge` — community fridge inventory with need-board posting.
 
 ## AI setup
 

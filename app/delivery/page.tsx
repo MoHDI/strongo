@@ -150,6 +150,7 @@ export default function DeliveryPage() {
             <Link href="/menu-scan">Menu scan</Link>
             <Link href="/dispatch">Dispatch</Link>
             <Link href="/transparency">Transparency</Link>
+            <Link href="/fridge">Fridge</Link>
             <Link href="/labs">Labs</Link>
           </nav>
         </div>
