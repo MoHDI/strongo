@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { chatComplete, extractJson, hasKey, VISION_MODEL } from "@/lib/meta";
+import { segmentImage } from "@/lib/sam";
 
 const CATEGORIES = ["protein", "produce", "dairy", "grains", "other"] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -83,9 +84,14 @@ export async function POST(req: Request) {
   const items = cleanItems(parsed?.items);
   const present = new Set(items.map((i) => i.category));
   const lowOn = STAPLES.filter((c) => !present.has(c));
+  // SAM outlines are best-effort: missing boxes never fail the inventory.
+  const outlines = await segmentImage(body.image, "food")
+    .then((r) => (r.ok ? r.boxes : []))
+    .catch(() => []);
   return NextResponse.json({
     items,
     lowOn,
+    outlines,
     model: VISION_MODEL,
     latencyMs: Date.now() - started,
   });

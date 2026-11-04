@@ -13,6 +13,10 @@ export default function FridgePage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [items, setItems] = useState<FridgeItem[]>([]);
   const [lowOn, setLowOn] = useState<string[]>([]);
+  const [outlines, setOutlines] = useState<
+    { left: number; top: number; right: number; bottom: number }[]
+  >([]);
+  const [dims, setDims] = useState<{ w: number; h: number } | null>(null);
   const [meta, setMeta] = useState<{ model: string; latencyMs: number } | null>(null);
   const [scanning, setScanning] = useState(false);
   const [name, setName] = useState("");
@@ -27,6 +31,8 @@ export default function FridgePage() {
     setPosted(false);
     setItems([]);
     setLowOn([]);
+    setOutlines([]);
+    setDims(null);
     const reader = new FileReader();
     reader.onload = () => setPreview(reader.result as string);
     reader.readAsDataURL(file);
@@ -47,6 +53,7 @@ export default function FridgePage() {
       const data = (await res.json()) as {
         items?: FridgeItem[];
         lowOn?: string[];
+        outlines?: { left: number; top: number; right: number; bottom: number }[];
         model?: string;
         latencyMs?: number;
         error?: string;
@@ -54,6 +61,7 @@ export default function FridgePage() {
       if (!res.ok) throw new Error(data.error ?? "Scan failed.");
       setItems(data.items ?? []);
       setLowOn(data.lowOn ?? []);
+      setOutlines(data.outlines ?? []);
       setMeta({ model: data.model ?? "Muse", latencyMs: data.latencyMs ?? 0 });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Scan failed.");
@@ -131,12 +139,44 @@ export default function FridgePage() {
 
         {preview && (
           <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={preview}
-              alt="Fridge photo preview"
-              style={{ maxWidth: "24rem", borderRadius: "8px" }}
-            />
+            <div style={{ position: "relative", maxWidth: "24rem" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={preview}
+                alt="Fridge photo preview"
+                style={{ width: "100%", borderRadius: "8px", display: "block" }}
+                onLoad={(e) =>
+                  setDims({
+                    w: e.currentTarget.naturalWidth,
+                    h: e.currentTarget.naturalHeight,
+                  })
+                }
+              />
+              {dims &&
+                dims.w > 0 &&
+                outlines.map((b, i) => (
+                  <div
+                    key={i}
+                    title="Outlined by sam-3.1"
+                    style={{
+                      position: "absolute",
+                      left: `${(b.left / dims.w) * 100}%`,
+                      top: `${(b.top / dims.h) * 100}%`,
+                      width: `${((b.right - b.left) / dims.w) * 100}%`,
+                      height: `${((b.bottom - b.top) / dims.h) * 100}%`,
+                      border: "2px solid #7c5cff",
+                      borderRadius: "4px",
+                      pointerEvents: "none",
+                    }}
+                  />
+                ))}
+            </div>
+            {outlines.length > 0 && (
+              <p className="muted">
+                {outlines.length} region{outlines.length === 1 ? "" : "s"} outlined
+                by sam-3.1.
+              </p>
+            )}
             <div className="btn-row">
               <button className="btn" onClick={scan} disabled={scanning}>
                 {scanning ? "Reading fridge…" : "Scan fridge"}

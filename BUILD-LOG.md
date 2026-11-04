@@ -53,3 +53,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   to the build log; landing footer folded into it.
 - 2026-11-02: Fridge Check — vision inventory with staples gap list,
   one-tap posting to the need board; added to main nav.
+- 2026-11-02: Third model — SAM 3.1 outlines on fridge photos via the
+  Responses API (fail-soft); voice skipped, no actionable endpoint docs.
