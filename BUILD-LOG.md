@@ -55,3 +55,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   one-tap posting to the need board; added to main nav.
 - 2026-11-02: Third model — SAM 3.1 outlines on fridge photos via the
   Responses API (fail-soft); voice skipped, no actionable endpoint docs.
+- 2026-11-02: README upgrade — pitch, Mermaid diagram, models table,
+  quickstart, eval numbers, badges, screenshot slots, Labs roadmap.
