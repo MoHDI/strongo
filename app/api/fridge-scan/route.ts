@@ -72,7 +72,7 @@ export async function POST(req: Request) {
         ],
       },
     ],
-    { model: VISION_MODEL, maxTokens: 1000 }
+    { model: VISION_MODEL, maxTokens: 4000 }
   );
 
   if (!result.ok) {

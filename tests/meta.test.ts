@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractJson, extractReplyText } from "../lib/meta";
+import { describeReplyContent, extractJson, extractReplyText } from "../lib/meta";
 
 describe("extractJson", () => {
   it("parses pure JSON", () => {
@@ -59,5 +59,30 @@ describe("extractReplyText", () => {
     expect(
       extractReplyText({ choices: [{ message: { content: [] } }] })
     ).toBeNull();
+  });
+});
+
+describe("describeReplyContent", () => {
+  it("summarizes string content", () => {
+    expect(
+      describeReplyContent({ choices: [{ message: { content: "hi" } }] })
+    ).toBe("string[2]");
+  });
+
+  it("summarizes block arrays", () => {
+    expect(
+      describeReplyContent({
+        choices: [
+          { message: { content: [{ type: "thinking" }, { type: "text", text: "x" }] } },
+        ],
+      })
+    ).toBe("array[2]{thinking,text}");
+  });
+
+  it("summarizes missing payloads", () => {
+    expect(describeReplyContent({})).toBe("no_choices");
+    expect(describeReplyContent({ choices: [{ message: {} }] })).toBe(
+      "missing"
+    );
   });
 });

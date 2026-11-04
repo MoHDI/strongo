@@ -66,7 +66,7 @@ export async function chatComplete(
     const reason = data?.choices?.[0]?.finish_reason;
     return {
       ok: false,
-      error: `empty_response:${typeof reason === "string" ? reason : "unknown"}`,
+      error: `empty_response:${typeof reason === "string" ? reason : "unknown"}:${describeReplyContent(data)}`,
     };
   }
   return { ok: true, text };
@@ -91,6 +91,29 @@ export function extractReplyText(data: unknown): string | null {
     return text || null;
   }
   return null;
+}
+
+// One-line shape summary for empty-reply diagnostics, e.g.
+// "string[0]", "array[2]{thinking,text}", "missing".
+export function describeReplyContent(data: unknown): string {
+  const choice = (
+    data as { choices?: Array<{ message?: { content?: unknown } }> }
+  )?.choices?.[0];
+  if (!choice) return "no_choices";
+  const content = choice.message?.content;
+  if (typeof content === "string") return `string[${content.length}]`;
+  if (Array.isArray(content)) {
+    const kinds = content.map((b) =>
+      typeof b === "object" &&
+      b !== null &&
+      typeof (b as { type?: unknown }).type === "string"
+        ? (b as { type: string }).type
+        : "?"
+    );
+    return `array[${content.length}]{${kinds.join(",")}}`;
+  }
+  if (content === undefined) return "missing";
+  return typeof content;
 }
 
 export function extractJson(text: string): unknown | null {
