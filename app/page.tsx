@@ -297,12 +297,6 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="site-footer">
-        <div className="wrap">
-          <span>Strongo — built in the open for the neighborhood.</span>
-          <a href="https://github.com/MoHDI/strongo">github.com/MoHDI/strongo</a>
-        </div>
-      </footer>
     </>
   );
 }
