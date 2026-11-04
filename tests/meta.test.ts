@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractJson } from "../lib/meta";
+import { extractJson, extractReplyText } from "../lib/meta";
 
 describe("extractJson", () => {
   it("parses pure JSON", () => {
@@ -20,5 +20,44 @@ describe("extractJson", () => {
 
   it("returns null for empty input", () => {
     expect(extractJson("")).toBeNull();
+  });
+});
+
+describe("extractReplyText", () => {
+  it("reads plain string content", () => {
+    expect(
+      extractReplyText({ choices: [{ message: { content: "hi" } }] })
+    ).toBe("hi");
+  });
+
+  it("joins content-block arrays", () => {
+    expect(
+      extractReplyText({
+        choices: [
+          {
+            message: {
+              content: [
+                { type: "text", text: "a" },
+                { type: "output_text", text: "b" },
+              ],
+            },
+          },
+        ],
+      })
+    ).toBe("ab");
+  });
+
+  it("returns null when content is missing", () => {
+    expect(extractReplyText({ choices: [{ message: {} }] })).toBeNull();
+    expect(extractReplyText({})).toBeNull();
+  });
+
+  it("returns null for empty content", () => {
+    expect(
+      extractReplyText({ choices: [{ message: { content: "" } }] })
+    ).toBeNull();
+    expect(
+      extractReplyText({ choices: [{ message: { content: [] } }] })
+    ).toBeNull();
   });
 });

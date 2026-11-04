@@ -56,13 +56,41 @@ export async function chatComplete(
   if (!res.ok) return { ok: false, error: `meta_${res.status}` };
 
   const data = (await res.json()) as {
-    choices?: Array<{ message?: { content?: unknown } }>;
+    choices?: Array<{
+      message?: { content?: unknown };
+      finish_reason?: unknown;
+    }>;
   };
-  const text = data?.choices?.[0]?.message?.content;
-  if (typeof text !== "string" || !text) {
-    return { ok: false, error: "empty_response" };
+  const text = extractReplyText(data);
+  if (!text) {
+    const reason = data?.choices?.[0]?.finish_reason;
+    return {
+      ok: false,
+      error: `empty_response:${typeof reason === "string" ? reason : "unknown"}`,
+    };
   }
   return { ok: true, text };
+}
+
+// Pulls reply text out of a chat-completion payload. Handles both the
+// plain-string `content` form and the content-blocks array form
+// ([{ type: "text", text: "..." }]) some models return.
+export function extractReplyText(data: unknown): string | null {
+  const content = (
+    data as { choices?: Array<{ message?: { content?: unknown } }> }
+  )?.choices?.[0]?.message?.content;
+  if (typeof content === "string") return content || null;
+  if (Array.isArray(content)) {
+    const text = content
+      .map((b) =>
+        typeof b === "object" && b !== null && typeof (b as { text?: unknown }).text === "string"
+          ? (b as { text: string }).text
+          : ""
+      )
+      .join("");
+    return text || null;
+  }
+  return null;
 }
 
 export function extractJson(text: string): unknown | null {

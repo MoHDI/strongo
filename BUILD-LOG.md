@@ -57,3 +57,5 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   Responses API (fail-soft); voice skipped, no actionable endpoint docs.
 - 2026-11-02: README upgrade — pitch, Mermaid diagram, models table,
   quickstart, eval numbers, badges, screenshot slots, Labs roadmap.
+- 2026-11-04: Fixed empty_response on live API — reply parser now reads
+  content-block arrays as well as plain strings; errors report finish_reason.

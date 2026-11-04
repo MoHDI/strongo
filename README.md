@@ -1,7 +1,7 @@
 # Strongo
 
 ![CI](https://github.com/MoHDI/strongo/actions/workflows/ci.yml/badge.svg)
-![tests](https://img.shields.io/badge/vitest-21%20passing-brightgreen)
+![tests](https://img.shields.io/badge/vitest-25%20passing-brightgreen)
 
 Community-run food delivery and neighborhood services — owned by the
 community, not by an app taking 30%.
@@ -109,7 +109,7 @@ The image is multi-stage (Node 20) running the Next.js standalone server.
 ```sh
 npm run dev &          # eval needs a live server
 EVAL_BASE_URL=http://localhost:3000 npm run eval
-npm test               # vitest: 21 tests
+npm test               # vitest: 25 tests
 ```
 
 Eval results (20 orders, varied budgets/cuisines/diets, 4 non-English —
