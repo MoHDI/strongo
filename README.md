@@ -134,6 +134,9 @@ and build on every push and pull request.
 
 ## Demo script (3-minute video)
 
+Sample scan inputs live in [`demo-assets/`](demo-assets/): `menu.webp`
+for `/menu-scan`, `fridge.jpg` for `/fridge`.
+
 1. Land on `/` — the pitch: delivery without the 30% cut.
 2. `/delivery` — order in plain words (try the Spanish chip); note the
    model + latency badge on the suggestion.
