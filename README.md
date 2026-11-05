@@ -134,9 +134,9 @@ and build on every push and pull request.
 
 ## Demo video
 
-Watch: [Strongo 3-minute demo](https://youtu.be/IX7YALjwkVI).
+Watch: [Strongo demo](https://youtu.be/IX7YALjwkVI).
 
-## Demo script (3-minute video)
+## Demo script (video)
 
 Sample scan inputs live in [`demo-assets/`](demo-assets/): `menu.webp`
 for `/menu-scan`, `fridge.jpg` for `/fridge`.
