@@ -12,8 +12,10 @@ the security agent: run its checklist before every handoff.
 - `.gitignore` blocks `.env` and `.env*.local`. Verify with
   `git check-ignore -v .env .env.local` before the first push from any
   new machine.
-- `MODEL_API_KEY` is server-only: referenced only in `lib/meta.ts` and
-  API routes. Never `NEXT_PUBLIC_*`, never in client components.
+- `MODEL_API_KEY` is server-only: referenced only in `lib/meta.ts`,
+  `lib/sam.ts`, and API routes. Never `NEXT_PUBLIC_*`, never in client
+  components. (The string in `app/delivery/page.tsx` is a display label
+  naming the variable, not a key reference.)
 - If a key leaks: revoke it at dev.meta.ai immediately, then replace it.
 
 ## Agent checklist (run before every handoff)

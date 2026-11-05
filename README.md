@@ -132,6 +132,10 @@ and build on every push and pull request.
 | Fridge check + SAM outlines | `docs/screenshots/fridge.png` (todo) |
 | Transparency open books | `docs/screenshots/transparency.png` (todo) |
 
+## Demo video
+
+Watch: [Strongo 3-minute demo](https://youtu.be/IX7YALjwkVI).
+
 ## Demo script (3-minute video)
 
 Sample scan inputs live in [`demo-assets/`](demo-assets/): `menu.webp`

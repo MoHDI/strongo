@@ -59,3 +59,7 @@ below was built inside the hackathon window (Oct 26 – Nov 4, 2026).
   quickstart, eval numbers, badges, screenshot slots, Labs roadmap.
 - 2026-11-04: Fixed empty_response on live API — reply parser now reads
   content-block arrays as well as plain strings; errors report finish_reason.
+- 2026-11-04: Added MIT license, demo-assets (menu.webp, fridge.jpg), and
+  sample-input docs for the video run.
+- 2026-11-04: Raised vision token cap (4000) for menu/fridge scans; reply
+  shape diagnostics (describeReplyContent) with tests.
